@@ -17,7 +17,6 @@ export class AuthController {
     return this.authService.login(dto);
   }
 
-  // Endpoint داخلي - الـ Gateway بيكلمه عشان يتحقق من الـ Token
   @Get('validate')
   validate(@Headers('authorization') auth: string) {
     const token = auth?.replace('Bearer ', '');

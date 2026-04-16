@@ -18,11 +18,9 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    // تحقق إن الإيميل مش موجود
     const exists = await this.userRepo.findOne({ where: { email: dto.email } });
     if (exists) throw new ConflictException('Email already exists');
 
-    // هاش الباسورد
     const hashed = await bcrypt.hash(dto.password, 10);
     const user = this.userRepo.create({ email: dto.email, password: hashed });
     await this.userRepo.save(user);
